@@ -29,6 +29,60 @@
       "plural": "externalsecrets",
       "singular": "externalsecret"
     },
+    "validation": {
+      "openAPIV3Schema": {
+        "type": "object",
+        "required": [
+          "secretDescriptor"
+        ],
+        "properties": {
+          "secretDescriptor": {
+            "type": "object",
+            "required": [
+              "backendType",
+              "data"
+            ],
+            "properties": {
+              "backendType": {
+                "type": "string",
+                "enum": [
+                  "secretsManager",
+                  "systemManager"
+                ]
+              },
+              "roleArn": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "data": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "key",
+                    "name"
+                  ],
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "property": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "subresources": {
       "status": {}
     }

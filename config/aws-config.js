@@ -2,6 +2,8 @@
 
 /* eslint-disable no-process-env */
 const AWS = require('aws-sdk')
+const clonedeep = require('lodash.clonedeep')
+const merge = require('lodash.merge')
 
 const localstack = process.env.LOCALSTACK || 0
 
@@ -27,13 +29,13 @@ if (localstack) {
 module.exports = {
   secretsManagerFactory: (opts = {}) => {
     if (localstack) {
-      Object.assign(opts, secretsManagerConfig)
+      opts = merge(clonedeep(opts), secretsManagerConfig)
     }
     return new AWS.SecretsManager(opts)
   },
   systemManagerFactory: (opts = {}) => {
     if (localstack) {
-      Object.assign(opts, systemManagerConfig)
+      opts = merge(clonedeep(opts), systemManagerConfig)
     }
     return new AWS.SSM(opts)
   },
